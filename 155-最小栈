@@ -9,7 +9,7 @@
 链接：https://leetcode-cn.com/problems/min-stack
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
-//方法一
+//方法一 链栈
 class MinStack 
 {
     /** initialize your data structure here. */
@@ -79,3 +79,73 @@ class MinStack
         return sortFirst.item;
     }
 }
+
+
+
+//方法二 栈
+class MinStack 
+{
+    /** initialize your data structure here. */
+    int N = 1;
+    int[] stack = new int[N];
+    int top = 0;
+    int[] minStack = new int[N];
+    public MinStack() 
+    {
+        
+    }
+    
+    public void push(int x) 
+    {      
+        if(top == N)
+        {
+            N=2*N;
+            int[] newStack = new int[N];
+            int[] newMinStack = new int[N];
+            for(int i=0;i<N/2;i++)
+            {
+                newStack[i] = stack[i];
+            }
+            stack = newStack;
+            for(int i=0;i<N/2;i++)
+            {
+                newMinStack[i] = minStack[i];
+            }
+            minStack = newMinStack;
+            
+        }
+        stack[top] = x;
+        
+        if(top==0)
+        {
+            minStack[top++] = x;
+        }
+        else if(minStack[top-1]<x)
+        {
+            minStack[top] = minStack[top-1];
+            top++;
+        }
+        else
+        {
+            minStack[top] = x;
+            top++;
+        }   
+    }
+    
+    public void pop() 
+    {
+        top=top-1;
+    }
+    
+    public int top() 
+    {
+        return stack[top-1];
+    }
+    
+    public int getMin() 
+    {
+        return minStack[top-1];
+    }
+}
+
+
