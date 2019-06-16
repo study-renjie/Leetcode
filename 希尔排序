@@ -1,0 +1,44 @@
+public class ShellSort
+{
+    public static void main(String[] args)
+    {
+        int[] num = {2,4,5,12,123,312,1224,1241,351,35122,124,412};
+        shellSort(num);
+        for(int i=0;i<num.length;i++)
+        {
+          System.out.print(num[i]+" ");
+        }
+        System.out.print();
+    }
+    public static void shellSort(int[] num)
+    {
+        int N = num.length;
+        int h = 1;
+        while(h < N/3) //从原来的大概三分之一开始不断缩减
+        {
+            h = h*3 + 1;
+        }
+        while(h>=1)
+        {
+            for(int i=h;i<N;i++)   //从num的h一直到N-1位置不断的插入到前面排好序的间隔为h的对应数组中
+            {
+                int temp = num[i];
+                int j;
+                for(j=i;j>=h;j=j-h)//将num[i]插入到num[i-h]，num[i-2*h]，......
+                {
+                    if(temp < num[j-h])
+                    {
+                        System.out.println(111);
+                        num[j] = num[j-h];
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                num[j] = temp;
+            }
+            h=h/3;
+        }
+    }
+}
